@@ -28,16 +28,21 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity android:name=".Tasks"/>
+        <activity
+            android:name=".Tasks"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NovellaActivity"
-            android:label="@string/title_activity_novella"></activity>
+            android:label="@string/title_activity_novella"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

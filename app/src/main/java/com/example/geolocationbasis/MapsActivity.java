@@ -2,6 +2,7 @@ package com.example.geolocationbasis;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -10,18 +11,22 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    Intent intent;
 
     private GoogleMap mMap;
     LatLng myPlace;
+    LatLng BasketBall = new LatLng(52.260361, 104.262611);
+    LatLng Bunker = new LatLng(52.272194, 104.260806);
+    LatLng Island = new LatLng(52.269677, 104.283267);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -42,19 +47,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(myPlace).title("Я здесь"));
+        mMap.addMarker(new MarkerOptions().position(BasketBall).title("Лёгкая прогулка"));
+        mMap.addMarker(new MarkerOptions().position(Bunker).title("Заброшенный бункер"));
+        mMap.addMarker(new MarkerOptions().position(Island).title("Остров \"Юность\""));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
         CameraPosition cameraPosition = new CameraPosition(myPlace, 23, 45, 15);
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Хочу сюда"));
+            public void onInfoWindowClick(Marker marker) {
+                intent = new Intent(MapsActivity.this, Tasks.class);
+
+                startActivity(intent);
             }
         });
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//                mMap.addMarker(new MarkerOptions().position(latLng).title("Хочу сюда"));
+//            }
+//        });
     }
 }

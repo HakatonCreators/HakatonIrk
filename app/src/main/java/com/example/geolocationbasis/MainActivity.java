@@ -45,15 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onProviderEnabled(String provider) {
-            //что делать, если провайдер включен
-            //прямое воздействие из программного кода запрещено
             if(granted || checkPermission())
                 showLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            //что делать, если провайдер выключен
         }
     };
 

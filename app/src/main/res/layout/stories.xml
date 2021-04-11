@@ -11,23 +11,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:textColor="#000000"
             android:id="@+id/namber"
-            android:layout_weight="1"/>
+            android:layout_weight="0"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:textColor="#000000"
             android:id="@+id/name"
-            android:layout_weight=""/>
+            android:layout_weight="1"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="50sp"
         android:textStyle="bold"
         android:layout_weight="0"
-        android:textColor="#000000"
         android:id="@+id/s"/>
 
     </LinearLayout>

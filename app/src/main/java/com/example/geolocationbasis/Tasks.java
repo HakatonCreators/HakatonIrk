@@ -3,7 +3,8 @@ package com.example.geolocationbasis;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-        import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
         import android.view.View;
         import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
@@ -20,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Tasks extends AppCompatActivity {
     ListView listView;
     LinearLayout linearLayout;
-    Button createButton;
+    Intent intent;
     int i = 0;
     int userId = 9999;
 
@@ -32,14 +33,10 @@ public class Tasks extends AppCompatActivity {
         listView = findViewById(R.id.storis);
         linearLayout = findViewById(R.id.my_linear);
 
-        //Подготовка данных - 1 этап формирование списка объектов
         final LinkedList<DBMS> books = new LinkedList<>();
         books.add(new DBMS(1," Лёгкая прогулка ",">"));
         books.add(new DBMS(2," Остров Юность ",">" ));
         books.add(new DBMS(3, " Заброшенный бункер ",">"));
-
-
-        //Подготовка данных - 2 этап формирования списка пар с ключами
 
         LinkedList<HashMap<String, Object>> listBooks = new LinkedList<>();
         for (int j = 0; j < books.size(); j++) {
@@ -50,22 +47,18 @@ public class Tasks extends AppCompatActivity {
             listBooks.add(map);
         }
 
-        //Подготовка данных 3 этап - вспомогательные массивы
         String [] keys = {"namber", "name", "s"};
         int [] toID = {R.id.namber, R.id.name,R.id.s};
-        //Подготовка адаптера
-        //ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.list_item, books);
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, listBooks, R.layout.stories,
                 keys, toID);
-        //установить адаптер
         listView.setAdapter(simpleAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(), i + ") " + books.get(i), Toast.LENGTH_SHORT)
-                        .show();
+                intent = new Intent(Tasks.this, MapsActivity.class);
+                startActivity(intent);
             }
         });
 
