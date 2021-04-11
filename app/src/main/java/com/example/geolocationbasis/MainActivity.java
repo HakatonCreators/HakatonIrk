@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     Location location;
 
     private boolean granted = false;
-
-    //TODO описать listener
     LocationListener listener = new LocationListener() {
         @SuppressLint("DefaultLocale")
         @Override
@@ -85,24 +83,20 @@ public class MainActivity extends AppCompatActivity {
         latText         =   findViewById(R.id.lat);
         timeText        =   findViewById(R.id.timeText);
 
-        //TODO подключить менеджер местоположения
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         showMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Tasks.class);
-                startActivity(intent);
-//                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-//                if(location != null) {
-//                    intent.putExtra("latitude", location.getLatitude());
-//                    intent.putExtra("longitude", location.getLongitude());
-//                    startActivity(intent);
-//                }else{
-//                    Toast.makeText(getApplicationContext(),
-//                            "Местоположение на определено",Toast.LENGTH_SHORT).show();
-//                }
-
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                if(location != null) {
+                    intent.putExtra("latitude", location.getLatitude());
+                    intent.putExtra("longitude", location.getLongitude());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            "Местоположение на определено",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -110,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO реализовать функцию получения координат с запросом разрешения
         if (granted || checkPermission()) {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                     1000 * 10, 20, listener);
@@ -129,15 +122,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkPermission(){
-        //относится к опасным разрешениям, требует запроса. Функция вторична - не сразу
-        //объяснить зачем разрешение, запрос только из активностей или фрагментов
         if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            //что делать, если разрешение не дано: попробовать запросить повторно
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION);
@@ -146,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //TODO переопределение функции обратного вызова для обработки ответа пользователя
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,

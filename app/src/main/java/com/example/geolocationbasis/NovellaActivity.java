@@ -41,11 +41,11 @@ public class NovellaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novella);
 
-        readFile();
+        readFile(2);
         textNovella = findViewById(R.id.text_view_novella);
         buttonLeft = findViewById(R.id.button_left);
         buttonRight = findViewById(R.id.button_right);
-        String lines[] = readFile().split("\n");
+        String lines[] = readFile(2).split("\n");
         textNovella.setText(lines[1]);
 
         buttonRight.setOnClickListener(new View.OnClickListener() {
